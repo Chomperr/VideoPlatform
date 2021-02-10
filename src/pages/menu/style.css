@@ -1,0 +1,30 @@
+
+.menu_title {
+    font-weight: 800;
+}
+
+.sidebar {
+    background-color: #383838;
+    height: 100vh;
+    width: var(--sidebar-width);
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 1;
+    color: var(--text-color-secondary);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+}
+
+.sidebar>.item{
+    font-size: 25px;
+    padding: 8px;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.sidebar>img{
+    width: 200px;
+}
