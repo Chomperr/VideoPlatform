@@ -1,5 +1,6 @@
 import React, {useState} from "react";
 import './style.css';
+import api from "../../services/api";
 
 const DEFAULT_VALUES = {
         title: '',
@@ -21,9 +22,11 @@ const Component = () => {
 
     const handlerSubmit = evnt => {
         evnt.preventDefault();
-        alert('Olá')
+        console.log('submitting', values);
+        api.addVideo({...values, date: new Date(`${values.date}`) });
+        alert('Cadastro realizado com sucesso!');
     }
-
+    
     return (
         <div className="form_container">
             <h1>Cadastro de Video</h1>
@@ -63,11 +66,11 @@ const Component = () => {
     )
 }
 
-const FormGroup = ({ value, name, onChange, label, type}) => {
+const FormGroup = ({ value, name, onChange, label, type, ...others}) => {
     return (
         <div className="form_group">
             <label htmlFor={name}>{label}</label>
-            <input name={name} value={value} onChange={onChange} type={type} />
+            <input name={name} value={value} onChange={onChange} type={type} {...others} />
         </div>
     )
 }

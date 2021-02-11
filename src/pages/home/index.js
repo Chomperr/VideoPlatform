@@ -1,6 +1,7 @@
-import React, {useState} from "react";
+import React, {useState, useEffect} from "react";
 import './style.css';
-
+import api from "../../services/api";
+/*
 const DEFAULT_LIST = [
     {
         title: "Chill study music",
@@ -32,9 +33,19 @@ const DEFAULT_LIST = [
     }
     
 ]
+*/
 
-export default () => {
-    const [list, setList] = useState(DEFAULT_LIST);
+const Component = () => {
+    const [list, setList] = useState([]);
+
+    useEffect(() => {
+        api.getVideoList()
+        .then(l=>{
+            console.log('list', l)
+            setList(l);
+        })
+    }, [])
+
     return (
         <div className="home_container">
             {
@@ -43,7 +54,6 @@ export default () => {
         </div>
     )
 }
-
 
 const Card = ({ title, imgUrl, userAvatar, description, date}) => {
     return (
@@ -60,3 +70,5 @@ const Card = ({ title, imgUrl, userAvatar, description, date}) => {
         </div>
     )
 }
+
+export default Component;
