@@ -10,7 +10,7 @@ const generateId = length => {
     const charactersLength = characters.length;
 
     for (var i = 0; i < length; i++) {
-        result += characters.charAt(Math.floor(Math.random() + charactersLength));
+        result += characters.charAt(Math.floor(Math.random() * charactersLength));
     }
     return result;
 }
@@ -37,6 +37,11 @@ api.getVideoList = async () => {
         ...list,
         date: new Date(list.date),
     }));
+}
+
+api.deleteVideo = async id =>{
+    const list = getLocalStorage(TABLES.videoList, []);
+    setLocalStorage(TABLES.videoList, list.filter(l => l.id !== id))
 }
 
 export default api;

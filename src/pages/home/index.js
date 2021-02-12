@@ -46,16 +46,22 @@ const Component = () => {
         })
     }, [])
 
+    const handlerDelete = (id) => {
+        api.deleteVideo(id);
+        setList(list.filter(l => l.id !== id))
+    }
+
     return (
         <div className="home_container">
             {
-                list.map(row=><Card {...row} />)
+                list.map(row=><Card {...row} handlerDelete={handlerDelete} />)
             }
         </div>
     )
 }
 
-const Card = ({ title, imgUrl, userAvatar, description, date}) => {
+const Card = ({ title, imgUrl, userAvatar, description, date, id, handlerDelete}) => {
+
     return (
         <div className="home_card">
             <img src={imgUrl} alt="imagem" />
@@ -65,6 +71,7 @@ const Card = ({ title, imgUrl, userAvatar, description, date}) => {
                     <h1>{title}</h1>
                     <h2>Publicado em {date.toLocaleDateString('pt-br')}</h2>
                 </div>
+                <img onClick={() => handlerDelete(id)} src="/images/trashbin.svg" className="trash_icon" alt="deletar video"/>
             </div>
             <p>{description}</p>
         </div>

@@ -50,3 +50,23 @@
     display: flex;
     padding: 8px;
 }
+
+.title_box {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    flex: 1;
+}
+
+.trash_icon{
+    width: 25px;
+    height: 25px;
+    padding: 8px;
+    border-radius: 50%;
+    transition: 0.2s;
+    cursor: pointer;
+}
+
+.trash_icon:hover{
+    background-color: rgba(0, 0, 0, 0.7);
+}
