@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {useState, useEffect} from "react";
 import './style.css';
 import api from "../../services/api";
 
@@ -26,6 +26,33 @@ const Component = () => {
         api.addVideo({...values, date: new Date(`${values.date}`) });
         alert('Cadastro realizado com sucesso!');
     }
+
+    const HandlerImage = (img) => {
+
+        useEffect(() => {
+            if (img) {
+                let image = new Image();
+                image.onload = evnt => {
+                    setValues(values=> ({
+                        ...values,
+                        imgUrl: img
+                    }))
+                }
+                image.onerror = evnt => {
+                    setValues(values=> ({
+                        ...values,
+                        imgUrl: '/images/no_image_available.png'
+                    }))
+                }
+                image.src = img;
+            }
+            else
+                setValues(values=> ({
+                    ...values,
+                    imgUrl: '/images/no_image_available.png'
+                }))
+    }, [img]);
+}
     
     return (
         <div className="form_container">
@@ -58,7 +85,7 @@ const Component = () => {
                     name="imgUrl"
                     label="Imagem"
                     onChange={handlerChange}
-                    value={values.imgUrl}
+                    value={HandlerImage(values.imgUrl)}
                 />
                 <button type="submit">Enviar</button>
             </form>

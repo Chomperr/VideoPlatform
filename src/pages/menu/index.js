@@ -1,13 +1,16 @@
 import React from "react";
 import './style.css';
+import { Link } from "react-router-dom";
 
-export default ({ list = [], clickMenu }) => {
+const Component = ({list = [] }) => {
     return (
-        <ul className="sidebar">
+        <nav className="sidebar">
             <img alt="Logo" src="/images/logo-gato.png" />
             {
-                list.map(item => <li id={item.id} key={item.id} className="item" onClick={clickMenu}>{item.title}</li>)
+                list.map(item => <Link id={item.id} key={item.id} className="item" to={item.link}>{item.title}</Link>)
             }
-        </ul>
+        </nav>
     )
 }
+
+export default Component

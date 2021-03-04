@@ -1,39 +1,6 @@
 import React, {useState, useEffect} from "react";
 import './style.css';
 import api from "../../services/api";
-/*
-const DEFAULT_LIST = [
-    {
-        title: "Chill study music",
-        imgUrl: 'https://i.pinimg.com/originals/5a/e5/a6/5ae5a6080c8461137b036a300533c0da.jpg',
-        userAvatar: 'https://thumbs.dreamstime.com/b/raccoon-glasses-cap-headphones-vector-illustration-animal-hipster-music-fashion-style-print-clothes-104346236.jpg',
-        description: 'Lofi beats',
-        date: new Date(2021, 2, 9)
-    },
-    {
-        title: "Chill study music",
-        imgUrl: 'https://i.pinimg.com/originals/5a/e5/a6/5ae5a6080c8461137b036a300533c0da.jpg',
-        userAvatar: 'https://thumbs.dreamstime.com/b/raccoon-glasses-cap-headphones-vector-illustration-animal-hipster-music-fashion-style-print-clothes-104346236.jpg',
-        description: 'Lofi beats',
-        date: new Date(2021, 2, 9)
-    },
-    {
-        title: "Chill study music",
-        imgUrl: 'https://i.pinimg.com/originals/5a/e5/a6/5ae5a6080c8461137b036a300533c0da.jpg',
-        userAvatar: 'https://thumbs.dreamstime.com/b/raccoon-glasses-cap-headphones-vector-illustration-animal-hipster-music-fashion-style-print-clothes-104346236.jpg',
-        description: 'Lofi beats',
-        date: new Date(2021, 2, 9)
-    },
-    {
-        title: "Chill study music",
-        imgUrl: 'https://i.pinimg.com/originals/5a/e5/a6/5ae5a6080c8461137b036a300533c0da.jpg',
-        userAvatar: 'https://thumbs.dreamstime.com/b/raccoon-glasses-cap-headphones-vector-illustration-animal-hipster-music-fashion-style-print-clothes-104346236.jpg',
-        description: 'Lofi beats',
-        date: new Date(2021, 2, 9)
-    }
-    
-]
-*/
 
 const Component = () => {
     const [list, setList] = useState([]);
@@ -41,7 +8,6 @@ const Component = () => {
     useEffect(() => {
         api.getVideoList()
         .then(l=>{
-            console.log('list', l)
             setList(l);
         })
     }, [])
@@ -61,12 +27,29 @@ const Component = () => {
 }
 
 const Card = ({ title, imgUrl, userAvatar, description, date, id, handlerDelete}) => {
+    const [avatarUrl, setAvatarUrl] = useState('/images/avatar_placeholder.png');
+
+    useEffect(() => {
+        if (userAvatar) {
+            let img = new Image();
+            img.onload = evnt => {
+                setAvatarUrl(userAvatar);
+            }
+            img.onerror = evnt => {
+                setAvatarUrl('/images/avatar_placeholder.png');
+            }
+            img.src = userAvatar;
+        }
+        else
+            setAvatarUrl('/images/avatar_placeholder.png');
+}, [userAvatar]);
 
     return (
         <div className="home_card">
+            <img src={"/images/edit_pencil.png"} className="topRightIcon" alt="Editar" />
             <img src={imgUrl} alt="imagem" />
             <div className="title_container">
-                <img className="avatar" src={userAvatar} alt="avatar" />
+                <img className="avatar" src={avatarUrl} alt="avatar" />
                 <div className="title_box">
                     <h1>{title}</h1>
                     <h2>Publicado em {date.toLocaleDateString('pt-br')}</h2>

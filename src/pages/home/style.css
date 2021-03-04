@@ -16,6 +16,7 @@
     width: 350px;
     height: 400px;
     margin: 8px;
+    position: relative;
 }
 
 .home_card>img {
@@ -69,4 +70,17 @@
 
 .trash_icon:hover{
     background-color: rgba(0, 0, 0, 0.7);
+}
+
+.topRightIcon {
+    top: 0;
+    right: 0;
+    z-index: 1;
+    margin-top: 4px;
+    margin-right: 4px;
+    position: absolute;
+    width: 20px !important;
+    height: 20px;
+    display: flex !important;
+    flex-direction: row !important;
 }
